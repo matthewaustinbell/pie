@@ -64,14 +64,14 @@ const printToDom =(divId ,textToPrint ) => {
     selectedDiv.innerHTML = textToPrint;
     };
 
-const pieBuilder = () => {
+const pieBuilder = (monkeybutts) => {
     let domString = '';
 
 
     //see the image and the name 8:34
     //border and flexbox styling 
 
-pies.forEach((pie) => {
+  monkeybutts.forEach((pie) => {
     domString += `<div class="card">`
     domString += `<h2>${pie.name}<h/2>`;
     domString += `<img src=${pie.imageUrl} alt='Image of ${pie.name}' />`
@@ -82,14 +82,36 @@ pies.forEach((pie) => {
 
 }
 
-const buttonClick = () => {
-    console.log('you clicked a button');
+const buttonClick = (e) => {
+    const buttonId = e.target.id;
+
+
+
+    const selectedPies = [];
+    pies.forEach((pie) => {
+      if (pie.instructor === buttonId) {
+        selectedPies.push(pie);
+      }
+    }
+    );
+
+    if (buttonId === 'All') {
+      pieBuilder(pies);
+    } else {
+      pieBuilder(selectedPies);
+    }
+    
 
 };
 
+
+
 const buttonEvents = () => {
-    documentTimeline.getElementById('Zoe').addEventListener('click',buttonCLick)
-    ????.addEventListener('click', buttonCLick);
+    document.getElementById('Zoe').addEventListener('click', buttonClick);
+    document.getElementById('Saul').addEventListener('click', buttonClick);
+    document.getElementById('Micheal').addEventListener('click', buttonClick);
+    document.getElementById('All').addEventListener('click', buttonClick);
+
 
 };
 
@@ -97,5 +119,7 @@ const buttonEvents = () => {
 const init = () => {
 
     buttonEvents();
-    pieBuilder();
+    pieBuilder(pies);
 };
+
+init();
